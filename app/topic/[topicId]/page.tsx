@@ -1,19 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { getTopicById } from "../../../data";
 import ResultPopup from "@/app/components/ResultPopup";
 
-interface TopicPageProps {
-  params: {
-    topicId: string;
-  };
-}
-
-export default function TopicPage({ params }: TopicPageProps) {
-  const topicId = parseInt(params.topicId);
+export default function TopicPage() {
+  const params = useParams();
+  const topicId = parseInt(params.topicId as string);
   const topic = getTopicById(topicId);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -22,8 +17,15 @@ export default function TopicPage({ params }: TopicPageProps) {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
 
+  // Handle the case where topic is not found
+  useEffect(() => {
+    if (!topic) {
+      notFound();
+    }
+  }, [topic]);
+
   if (!topic) {
-    notFound();
+    return null; // Return null while waiting for notFound to trigger
   }
 
   const question = topic.mcqs[currentQuestion];

@@ -2,22 +2,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, getCategoryByName } from "../../../data";
 
-// ✅ Generate static params for all categories
 export async function generateStaticParams() {
   return categories.map((category) => ({
     categoryName: category.name.toLowerCase(),
   }));
 }
 
-// ✅ Props type
-interface PageProps {
+type CategoryPageProps = {
   params: {
     categoryName: string;
   };
-}
+};
 
-// ✅ Category page component
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const category = getCategoryByName(params.categoryName);
 
   if (!category) {

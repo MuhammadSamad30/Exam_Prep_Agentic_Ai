@@ -86,13 +86,11 @@ export default function TopicPage({ params }: TopicPageProps) {
         </div>
       </div>
 
-      {/* Question Card */}
       <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/80 rounded-2xl shadow-[0_8px_30px_rgba(139,92,246,0.25)] p-6 sm:p-8 mb-10 border border-purple-700/40 backdrop-blur-md transition hover:shadow-[0_8px_40px_rgba(139,92,246,0.4)]">
         <h3 className="text-lg sm:text-xl font-bold text-gray-100 mb-6">
           {question.question}
         </h3>
 
-        {/* Options */}
         <div className="space-y-4 mb-8">
           {question.options.map((option, index) => {
             const isSelected = selectedOption === option;
@@ -122,7 +120,6 @@ export default function TopicPage({ params }: TopicPageProps) {
           })}
         </div>
 
-        {/* Explanation */}
         {showExplanation && question.explanation && (
           <div className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 border-l-4 border-indigo-500 p-5 mb-6 rounded-xl shadow-md">
             <p className="text-indigo-300 text-sm sm:text-base">
@@ -131,7 +128,6 @@ export default function TopicPage({ params }: TopicPageProps) {
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex justify-end">
           {!showExplanation ? (
             <button
@@ -157,15 +153,14 @@ export default function TopicPage({ params }: TopicPageProps) {
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="flex justify-between mt-8 gap-4">
         <Link
           href={`/category/${
-        topic.name.toLowerCase().includes("basic")
-          ? "basic"
-          : topic.name.toLowerCase().includes("medium")
-          ? "medium"
-          : "advanced"
+            topic.name.toLowerCase().includes("basic")
+              ? "basic"
+              : topic.name.toLowerCase().includes("medium")
+              ? "medium"
+              : "advanced"
           }`}
           className="inline-flex items-center px-5 py-2 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-purple-200 hover:text-white font-semibold shadow-md transition-all duration-200"
         >
@@ -178,14 +173,14 @@ export default function TopicPage({ params }: TopicPageProps) {
           <span className="mr-2">←</span> Back to Categories
         </Link>
       </div>
-        {showResult && (
-          <ResultPopup
-            score={score}
-            total={topic.mcqs.length}
-            onRestart={handleRestart}
-            onClose={() => setShowResult(false)}
-          />
-        )}
+      {showResult && (
+        <ResultPopup
+          score={score}
+          total={topic.mcqs.length}
+          onRestart={handleRestart}
+          onClose={() => setShowResult(false)}
+        />
+      )}
     </div>
   );
 }

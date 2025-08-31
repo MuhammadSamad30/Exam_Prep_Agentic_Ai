@@ -10467,7 +10467,7 @@ export const categories: Category[] = [
         ],
       },
       {
-        id: 203,
+        id: 204,
         name: "Cloning",
         description:
           "Cloning allows duplicating agents with similar configurations and behavior.",

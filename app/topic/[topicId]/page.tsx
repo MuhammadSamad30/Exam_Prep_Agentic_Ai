@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { getTopicById } from "../../../data";
 import ResultPopup from "@/app/components/ResultPopup";
+import { ArrowLeft } from "lucide-react";
 
 export default function TopicPage() {
   const params = useParams();
@@ -17,7 +18,6 @@ export default function TopicPage() {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
 
-  // Handle the case where topic is not found
   useEffect(() => {
     if (!topic) {
       notFound();
@@ -25,7 +25,7 @@ export default function TopicPage() {
   }, [topic]);
 
   if (!topic) {
-    return null; // Return null while waiting for notFound to trigger
+    return null;
   }
 
   const question = topic.mcqs[currentQuestion];
@@ -64,6 +64,16 @@ export default function TopicPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-950 text-gray-100 py-10 px-4">
+      {/* Back Icon */}
+      <div className="w-full max-w-6xl mb-4 flex items-center">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-gray-300 hover:text-blue-400 transition-colors"
+        >
+          <ArrowLeft className="w-6 h-6" />
+          <span className="hidden sm:inline text-base font-medium">Back</span>
+        </Link>
+      </div>
       {/* Header */}
       <div className="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -155,26 +165,6 @@ export default function TopicPage() {
         </div>
       </div>
 
-      <div className="flex justify-between mt-8 gap-4">
-        <Link
-          href={`/category/${
-            topic.name.toLowerCase().includes("basic")
-              ? "basic"
-              : topic.name.toLowerCase().includes("medium")
-              ? "medium"
-              : "advanced"
-          }`}
-          className="inline-flex items-center px-5 py-2 rounded-xl bg-gradient-to-r from-purple-800 to-indigo-800 hover:from-purple-700 hover:to-indigo-700 text-purple-200 hover:text-white font-semibold shadow-md transition-all duration-200"
-        >
-          <span className="mr-2">←</span> Back to Topics
-        </Link>
-        <Link
-          href="/"
-          className="inline-flex items-center px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-800 to-purple-800 hover:from-indigo-700 hover:to-purple-700 text-purple-200 hover:text-white font-semibold shadow-md transition-all duration-200"
-        >
-          <span className="mr-2">←</span> Back to Categories
-        </Link>
-      </div>
       {showResult && (
         <ResultPopup
           score={score}

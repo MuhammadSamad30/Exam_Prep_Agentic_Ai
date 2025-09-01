@@ -16,6 +16,7 @@ export interface Topic {
 export interface Category {
   id: number;
   name: string;
+  url?: any;
   description?: string;
   topics: Topic[];
 }
@@ -24,6 +25,7 @@ export const categories: Category[] = [
   {
     id: 1,
     name: "Basic",
+    url: "/basic",
     description: "Fundamental topics for Python / Agentic AI exams",
     topics: [
       {
@@ -4957,6 +4959,7 @@ export const categories: Category[] = [
   {
     id: 2,
     name: "Medium",
+    url: "/medium",
     description:
       "Conceptual and practical topics for Python / Agentic AI exams",
     topics: [
@@ -9273,10 +9276,10 @@ export const categories: Category[] = [
       },
     ],
   },
-
   {
     id: 3,
     name: "Advanced",
+    url: "/advanced",
     description: "Advanced topics in tracing and debugging",
     topics: [
       {

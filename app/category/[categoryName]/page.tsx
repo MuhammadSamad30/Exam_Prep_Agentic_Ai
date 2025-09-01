@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, getCategoryByName } from "../../../data";
+import { FileDown } from "lucide-react";
 
 export async function generateStaticParams() {
   return categories.map((category) => ({
@@ -60,10 +61,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </div>
 
       <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/80 rounded-2xl shadow-[0_8px_30px_rgba(139,92,246,0.3)] overflow-hidden max-w-3xl mx-auto border border-purple-800/30 backdrop-blur-md">
-        <div className="bg-gray-950/80 px-6 py-4 border-b border-purple-800/30">
+        <div className="bg-gray-950/80 px-6 py-4 border-b border-purple-800/30 flex justify-between items-center">
           <h3 className="text-xl sm:text-2xl font-semibold text-purple-300 drop-shadow-md">
             {category.name} Topics
           </h3>
+          <Link
+            href={category.url}
+            className="text-sm text-purple-300 hover:underline"
+          >
+          <FileDown />
+          </Link>
         </div>
 
         <ul className="divide-y divide-gray-800">

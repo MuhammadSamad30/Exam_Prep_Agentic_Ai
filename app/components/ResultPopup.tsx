@@ -7,6 +7,7 @@ interface ResultPopupProps {
   total: number;
   onRestart: () => void;
   onClose: () => void;
+  timeSpent?: any;
 }
 
 export default function ResultPopup({
@@ -14,6 +15,7 @@ export default function ResultPopup({
   total,
   onRestart,
   onClose,
+  timeSpent,
 }: ResultPopupProps) {
   const wrong = total - score;
   const percentage = Math.round((score / total) * 100);

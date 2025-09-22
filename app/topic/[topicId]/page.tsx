@@ -47,7 +47,7 @@ export default function TopicPage() {
       } else if (e.key >= "1" && e.key <= "4" && !showExplanation) {
         // Number keys 1-4 to select options
         const optionIndex = parseInt(e.key) - 1;
-        if (optionIndex < topic.mcqs[currentQuestion].options.length) {
+        if (topic && optionIndex < topic.mcqs[currentQuestion].options.length) {
           handleOptionSelect(topic.mcqs[currentQuestion].options[optionIndex]);
         }
       } else if (e.key === "Escape" && showExplanation) {

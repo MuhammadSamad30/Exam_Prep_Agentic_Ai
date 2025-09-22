@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 export default function Header() {
   const pathname = usePathname();
 
-  const hideHeader = /^\/topic\/\d+$/.test(pathname);
+  const hideHeader = /^\/topic\/\d+$/.test(pathname) || pathname === "/exam-topics";
 
   if (hideHeader) return null;
 

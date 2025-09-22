@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { categories } from "../data";
+import ImpExamCard from "./components/ImpExamCard";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         </p>
       </div>
 
+      <ImpExamCard />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {categories.map((category, index) => (
           <div
@@ -72,7 +74,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-      
     </div>
   );
 }

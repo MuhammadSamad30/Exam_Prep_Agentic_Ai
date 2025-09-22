@@ -231,9 +231,9 @@ const ExamTopicCard: React.FC = () => {
 
   if (!quizState.quizStarted) {
     return (
-      <div className="quiz-container min-h-screen bg-gray-900 py-8 px-4">
+      <div className="quiz-container min-h-screen bg-gray-900 py-6 px-3 sm:py-8 sm:px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-8">
             AI & Python Quiz Platform
           </h1>
 
@@ -243,15 +243,22 @@ const ExamTopicCard: React.FC = () => {
                 key={category.id}
                 className="flex flex-col md:flex-row bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden transition-transform hover:scale-[1.02]"
               >
-                <div className="flex-1 p-6">
-                  <h2 className="text-xl font-semibold text-white mb-3">
+                {/* Left Section */}
+                <div className="flex-1 p-4 sm:p-6">
+                  <h2 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">
                     {category.name}
                   </h2>
-                  <p className="text-gray-300 mb-4">{category.description}</p>
+                  <p className="text-gray-300 text-sm sm:text-base mb-3 sm:mb-4">
+                    {category.description}
+                  </p>
 
                   <button
                     onClick={() => startCategoryQuiz(category)}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-md transition-all duration-300 mb-3 font-medium transform hover:scale-105"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 
+                           hover:from-blue-700 hover:to-purple-700 
+                           text-white py-2 sm:py-3 px-4 sm:px-6 rounded-md 
+                           transition-all duration-300 mb-3 font-medium 
+                           transform hover:scale-105 text-sm sm:text-base"
                   >
                     Start Full Quiz (
                     {category.topics.flatMap((t: ExamTopic) => t.mcqs).length}{" "}
@@ -259,14 +266,20 @@ const ExamTopicCard: React.FC = () => {
                   </button>
                 </div>
 
-                <div className="flex-1 bg-gray-900 p-6">
-                  <h3 className="font-medium text-gray-300 mb-2">Topics:</h3>
+                {/* Right Section */}
+                <div className="flex-1 bg-gray-900 p-4 sm:p-6">
+                  <h3 className="font-medium text-gray-300 mb-2 text-sm sm:text-base">
+                    Topics:
+                  </h3>
                   <div className="space-y-2">
                     {category.topics.map((topic: ExamTopic) => (
                       <button
                         key={topic.id}
                         onClick={() => startQuiz(category, topic)}
-                        className="w-full text-left bg-gray-700 hover:bg-gray-600 rounded-md px-4 py-3 text-sm transition-all duration-200 text-white transform hover:translate-x-2"
+                        className="w-full text-left bg-gray-700 hover:bg-gray-600 
+                               rounded-md px-3 sm:px-4 py-2 sm:py-3 
+                               text-xs sm:text-sm transition-all duration-200 
+                               text-white transform hover:translate-x-2"
                       >
                         {topic.name} ({topic.mcqs.length} questions)
                       </button>
@@ -354,192 +367,198 @@ const ExamTopicCard: React.FC = () => {
   const isCorrect = userAnswer === currentQuestion.answer;
 
   return (
-    <div
-      className={`quiz-interface min-h-screen bg-gray-900 py-8 px-4 transition-opacity duration-300 ${
-        isTransitioning ? "opacity-0" : "opacity-100"
-      }`}
-    >
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-6 border border-gray-700">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-            <div>
-              <h1 className="text-2xl font-bold text-white">
-                {quizState.currentTopic.name}
-              </h1>
-              <p className="text-gray-300">{quizState.currentCategory?.name}</p>
-            </div>
-            <div className="bg-blue-900 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mt-2 sm:mt-0">
-              Question {quizState.currentQuestionIndex + 1} of{" "}
-              {quizState.currentTopic.mcqs.length}
-            </div>
+  <div
+    className={`quiz-interface min-h-screen bg-gray-900 py-6 px-3 sm:py-8 sm:px-4 transition-opacity duration-300 ${
+      isTransitioning ? "opacity-0" : "opacity-100"
+    }`}
+  >
+    <div className="max-w-4xl mx-auto">
+      {/* Header */}
+      <div className="bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6 mb-6 border border-gray-700">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4">
+          <div>
+            <h1 className="text-lg sm:text-2xl font-bold text-white">
+              {quizState.currentTopic.name}
+            </h1>
+            <p className="text-gray-300 text-sm sm:text-base">
+              {quizState.currentCategory?.name}
+            </p>
           </div>
-
-          <div className="w-full bg-gray-700 rounded-full h-3">
-            <div
-              className="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500 ease-out"
-              style={{
-                width: `${
-                  ((quizState.currentQuestionIndex + 1) /
-                    quizState.currentTopic.mcqs.length) *
-                  100
-                }%`,
-              }}
-            ></div>
+          <div className="bg-blue-900 text-blue-300 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mt-2 sm:mt-0">
+            Question {quizState.currentQuestionIndex + 1} of{" "}
+            {quizState.currentTopic.mcqs.length}
           </div>
         </div>
 
-        <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-6 border border-gray-700">
-          <h2 className="text-xl font-semibold text-white mb-6 leading-relaxed">
-            {currentQuestion.question}
-          </h2>
+        <div className="w-full bg-gray-700 rounded-full h-2 sm:h-3">
+          <div
+            className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 sm:h-3 rounded-full transition-all duration-500 ease-out"
+            style={{
+              width: `${
+                ((quizState.currentQuestionIndex + 1) /
+                  quizState.currentTopic.mcqs.length) *
+                100
+              }%`,
+            }}
+          ></div>
+        </div>
+      </div>
 
-          <div className="space-y-4">
-            {currentQuestion.options.map((option: string, index: number) => {
-              const isSelected = userAnswer === option;
-              const isCorrectOption = option === currentQuestion.answer;
-              const letter = String.fromCharCode(65 + index);
-              const numberKey = index + 1;
+      {/* Question + Options */}
+      <div className="bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6 mb-6 border border-gray-700">
+        <h2 className="text-base sm:text-xl font-semibold text-white mb-4 sm:mb-6 leading-relaxed">
+          {currentQuestion.question}
+        </h2>
 
-              let buttonClass =
-                "w-full text-left p-4 rounded-lg border-2 transition-all duration-200 transform ";
+        <div className="space-y-3 sm:space-y-4">
+          {currentQuestion.options.map((option: string, index: number) => {
+            const isSelected = userAnswer === option;
+            const isCorrectOption = option === currentQuestion.answer;
+            const letter = String.fromCharCode(65 + index);
+            const numberKey = index + 1;
 
-              if (hasAnswered) {
-                if (isCorrectOption) {
-                  buttonClass +=
-                    "border-green-500 bg-green-900/20 text-green-300 scale-105";
-                } else if (isSelected && !isCorrectOption) {
-                  buttonClass += "border-red-500 bg-red-900/20 text-red-300";
-                } else {
-                  buttonClass += "border-gray-600 bg-gray-750 text-gray-400";
-                }
+            let buttonClass =
+              "w-full text-left p-3 sm:p-4 rounded-lg border-2 text-sm sm:text-base transition-all duration-200 transform ";
+
+            if (hasAnswered) {
+              if (isCorrectOption) {
+                buttonClass +=
+                  "border-green-500 bg-green-900/20 text-green-300 scale-105";
+              } else if (isSelected && !isCorrectOption) {
+                buttonClass += "border-red-500 bg-red-900/20 text-red-300";
               } else {
-                buttonClass += isSelected
-                  ? "border-blue-500 bg-blue-900/20 text-white scale-105"
-                  : "border-gray-600 bg-gray-750 hover:border-gray-500 hover:bg-gray-700 text-white hover:scale-102";
+                buttonClass += "border-gray-600 bg-gray-750 text-gray-400";
               }
+            } else {
+              buttonClass += isSelected
+                ? "border-blue-500 bg-blue-900/20 text-white scale-105"
+                : "border-gray-600 bg-gray-750 hover:border-gray-500 hover:bg-gray-700 text-white hover:scale-102";
+            }
 
-              return (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(currentQuestion.id, option)}
-                  className={buttonClass}
-                  disabled={hasAnswered}
-                >
-                  <div className="flex items-center">
-                    <span
-                      className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 font-semibold transition-all ${
-                        hasAnswered
-                          ? isCorrectOption
-                            ? "bg-green-500 text-white"
-                            : isSelected
-                            ? "bg-red-500 text-white"
-                            : "bg-gray-600 text-gray-400"
-                          : isSelected
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-600 text-gray-300"
-                      }`}
-                    >
-                      {letter}
-                    </span>
-                    <span className="flex-1 text-left">{option}</span>
-                    <span className="ml-2 text-xs text-gray-500 bg-gray-700 px-2 py-1 rounded">
-                      {numberKey}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {hasAnswered && (
-            <div
-              className={`mt-6 p-4 rounded-lg border-2 transition-all duration-300 ${
-                isCorrect
-                  ? "border-green-500 bg-green-900/20"
-                  : "border-red-500 bg-red-900/20"
-              }`}
-            >
-              <p
-                className={
-                  isCorrect
-                    ? "text-green-300 font-medium"
-                    : "text-red-300 font-medium"
-                }
+            return (
+              <button
+                key={index}
+                onClick={() => handleAnswerSelect(currentQuestion.id, option)}
+                className={buttonClass}
+                disabled={hasAnswered}
               >
-                {isCorrect ? "✓ Correct!" : "✗ Incorrect!"}
-                {!isCorrect && (
-                  <span className="block mt-2 text-gray-300">
-                    The correct answer is:{" "}
-                    <strong className="text-green-300">
-                      {currentQuestion.answer}
-                    </strong>
+                <div className="flex items-center">
+                  <span
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mr-3 sm:mr-4 font-semibold text-sm sm:text-base transition-all ${
+                      hasAnswered
+                        ? isCorrectOption
+                          ? "bg-green-500 text-white"
+                          : isSelected
+                          ? "bg-red-500 text-white"
+                          : "bg-gray-600 text-gray-400"
+                        : isSelected
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-600 text-gray-300"
+                    }`}
+                  >
+                    {letter}
                   </span>
-                )}
-              </p>
-              {currentQuestion.explanation && (
-                <p className="text-gray-400 mt-3 text-sm leading-relaxed">
-                  {currentQuestion.explanation}
-                </p>
-              )}
-            </div>
-          )}
+                  <span className="flex-1 text-left">{option}</span>
+                  <span className="ml-2 text-[10px] sm:text-xs text-gray-500 bg-gray-700 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
+                    {numberKey}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between gap-4">
-          <button
-            onClick={prevQuestion}
-            disabled={quizState.currentQuestionIndex === 0}
-            className={`py-3 px-6 rounded-md font-medium transition-all duration-200 ${
-              quizState.currentQuestionIndex === 0
-                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                : "bg-gray-600 text-white hover:bg-gray-500 transform hover:scale-105"
+        {/* Feedback */}
+        {hasAnswered && (
+          <div
+            className={`mt-5 sm:mt-6 p-3 sm:p-4 rounded-lg border-2 transition-all duration-300 ${
+              isCorrect
+                ? "border-green-500 bg-green-900/20"
+                : "border-red-500 bg-red-900/20"
             }`}
           >
-            ← Previous
+            <p
+              className={
+                isCorrect
+                  ? "text-green-300 font-medium text-sm sm:text-base"
+                  : "text-red-300 font-medium text-sm sm:text-base"
+              }
+            >
+              {isCorrect ? "✓ Correct!" : "✗ Incorrect!"}
+              {!isCorrect && (
+                <span className="block mt-2 text-gray-300">
+                  The correct answer is:{" "}
+                  <strong className="text-green-300">
+                    {currentQuestion.answer}
+                  </strong>
+                </span>
+              )}
+            </p>
+            {currentQuestion.explanation && (
+              <p className="text-gray-400 mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed">
+                {currentQuestion.explanation}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+        <button
+          onClick={prevQuestion}
+          disabled={quizState.currentQuestionIndex === 0}
+          className={`py-2 sm:py-3 px-4 sm:px-6 rounded-md font-medium text-sm sm:text-base transition-all duration-200 ${
+            quizState.currentQuestionIndex === 0
+              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+              : "bg-gray-600 text-white hover:bg-gray-500 transform hover:scale-105"
+          }`}
+        >
+          ← Previous
+        </button>
+
+        {quizState.currentQuestionIndex ===
+        quizState.currentTopic.mcqs.length - 1 ? (
+          <button
+            onClick={submitQuiz}
+            disabled={!hasAnswered}
+            className={`py-2 sm:py-3 px-6 sm:px-8 rounded-md font-medium text-sm sm:text-base transition-all duration-200 ${
+              hasAnswered
+                ? "bg-gradient-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 transform hover:scale-105"
+                : "bg-gray-700 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            Submit Quiz
           </button>
+        ) : (
+          <button
+            onClick={nextQuestion}
+            disabled={!hasAnswered}
+            className={`py-2 sm:py-3 px-6 sm:px-8 rounded-md font-medium text-sm sm:text-base transition-all duration-200 ${
+              hasAnswered
+                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105"
+                : "bg-gray-700 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            Next <span className="text-[10px] sm:text-xs ml-2 opacity-75">(Enter)</span>
+          </button>
+        )}
+      </div>
 
-          {quizState.currentQuestionIndex ===
-          quizState.currentTopic.mcqs.length - 1 ? (
-            <button
-              onClick={submitQuiz}
-              disabled={!hasAnswered}
-              className={`py-3 px-8 rounded-md font-medium transition-all duration-200 ${
-                hasAnswered
-                  ? "bg-gradient-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 transform hover:scale-105"
-                  : "bg-gray-700 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              Submit Quiz
-            </button>
-          ) : (
-            <button
-              onClick={nextQuestion}
-              disabled={!hasAnswered}
-              className={`py-3 px-8 rounded-md font-medium transition-all duration-200 ${
-                hasAnswered
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105"
-                  : "bg-gray-700 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              Next Question{" "}
-              <span className="text-xs ml-2 opacity-75">(Enter)</span>
-            </button>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-3 justify-center mt-8">
-          {quizState.currentTopic.mcqs.map((question: ExamMCQ, index: number) => {
+      {/* Question Navigation */}
+      <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mt-6 sm:mt-8">
+        {quizState.currentTopic.mcqs.map(
+          (question: ExamMCQ, index: number) => {
             const hasAnswer = quizState.userAnswers[question.id];
             const isCurrent = index === quizState.currentQuestionIndex;
             const isCorrectAnswer =
-              hasAnswer &&
-              quizState.userAnswers[question.id] === question.answer;
+              hasAnswer && quizState.userAnswers[question.id] === question.answer;
 
             return (
               <button
                 key={index}
                 onClick={() => goToQuestion(index)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all duration-200 transform hover:scale-110 ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-medium text-xs sm:text-base transition-all duration-200 transform hover:scale-110 ${
                   isCurrent
                     ? "bg-blue-500 text-white scale-110 ring-2 ring-blue-300"
                     : hasAnswer
@@ -555,32 +574,35 @@ const ExamTopicCard: React.FC = () => {
                 {index + 1}
               </button>
             );
-          })}
-        </div>
+          }
+        )}
+      </div>
 
-        <div className="text-center mt-6 text-gray-500 text-sm">
-          <p className="flex flex-wrap justify-center gap-4">
-            <span className="flex items-center gap-1">
-              <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">1-4</kbd>{" "}
-              Select answer
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">← →</kbd>{" "}
-              Navigate
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">Enter</kbd>{" "}
-              Continue
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">Space</kbd>{" "}
-              Quick select
-            </span>
-          </p>
-        </div>
+      {/* Shortcuts */}
+      <div className="text-center mt-5 sm:mt-6 text-gray-500 text-[10px] sm:text-sm">
+        <p className="flex flex-wrap justify-center gap-2 sm:gap-4">
+          <span className="flex items-center gap-1">
+            <kbd className="bg-gray-700 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">1-4</kbd>{" "}
+            Select
+          </span>
+          <span className="flex items-center gap-1">
+            <kbd className="bg-gray-700 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">← →</kbd>{" "}
+            Navigate
+          </span>
+          <span className="flex items-center gap-1">
+            <kbd className="bg-gray-700 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">Enter</kbd>{" "}
+            Continue
+          </span>
+          <span className="flex items-center gap-1">
+            <kbd className="bg-gray-700 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">Space</kbd>{" "}
+            Quick
+          </span>
+        </p>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ExamTopicCard;

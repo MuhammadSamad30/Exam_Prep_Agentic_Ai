@@ -394,7 +394,7 @@ const ExamTopicCard: React.FC = () => {
           </h2>
 
           <div className="space-y-4">
-            {currentQuestion.options.map((option: any, index: number) => {
+            {currentQuestion.options.map((option: string, index: number) => {
               const isSelected = userAnswer === option;
               const isCorrectOption = option === currentQuestion.answer;
               const letter = String.fromCharCode(65 + index);
@@ -528,7 +528,7 @@ const ExamTopicCard: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap gap-3 justify-center mt-8">
-          {quizState.currentTopic.mcqs.map((question: any, index: number) => {
+          {quizState.currentTopic.mcqs.map((question: ExamMCQ, index: number) => {
             const hasAnswer = quizState.userAnswers[question.id];
             const isCurrent = index === quizState.currentQuestionIndex;
             const isCorrectAnswer =

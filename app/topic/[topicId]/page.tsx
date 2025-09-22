@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { getTopicById } from "../../../data";
@@ -39,13 +39,11 @@ export default function TopicPage() {
     return () => clearInterval(timer);
   }, [timeRemaining, showResult]);
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && showExplanation) {
         handleNextQuestion();
       } else if (e.key >= "1" && e.key <= "4" && !showExplanation) {
-        // Number keys 1-4 to select options
         const optionIndex = parseInt(e.key) - 1;
         if (topic && optionIndex < topic.mcqs[currentQuestion].options.length) {
           handleOptionSelect(topic.mcqs[currentQuestion].options[optionIndex]);

@@ -80,8 +80,8 @@ export const examCategoryList: ExamCategory[] = [
             question: "When designing a handoff, what is critical to maintain between agents?",
             options: [
               "Session token rotation",
-              "Consistent context and state",
               "Opposite model weights",
+              "Consistent context and state",
               "Separate billing accounts"
             ],
             answer: "Consistent context and state",
@@ -118,8 +118,8 @@ export const examCategoryList: ExamCategory[] = [
             id: 1006,
             question: "Which technique reduces context size when handing off to another agent?",
             options: [
-              "Token-padding with zeros",
               "Context summarization",
+              "Token-padding with zeros",
               "Dropping all user messages",
               "Encrypting the context"
             ],
@@ -131,10 +131,10 @@ export const examCategoryList: ExamCategory[] = [
             id: 1007,
             question: "In multi-agent systems, what does 'cascading handoff' mean?",
             options: [
-              "Multiple agents hand off in a chain until goal is reached",
               "One agent continuously loops without passing control",
               "Agents replicate identical responses",
-              "Handoff to external human operators only"
+              "Handoff to external human operators only",
+              "Multiple agents hand off in a chain until goal is reached"
             ],
             answer: "Multiple agents hand off in a chain until goal is reached",
             explanation:
@@ -171,8 +171,8 @@ export const examCategoryList: ExamCategory[] = [
             question: "What is a safe fallback during a failed handoff?",
             options: [
               "Return a misleading confident answer",
-              "Escalate to a simpler agent or human operator with context",
               "Drop the user's request silently",
+              "Escalate to a simpler agent or human operator with context",
               "Switch to a random agent"
             ],
             answer: "Escalate to a simpler agent or human operator with context",
@@ -192,8 +192,8 @@ export const examCategoryList: ExamCategory[] = [
               "How should clickable images with tooltips be implemented in Agentic AI responses?",
             options: [
               "Using HTML <img> tags",
-              "With Markdown ![alt](url) syntax",
               "Using Python matplotlib",
+              "With Markdown ![alt](url) syntax",
               "With custom JSON formatting"
             ],
             answer: "With Markdown ![alt](url) syntax",
@@ -205,8 +205,8 @@ export const examCategoryList: ExamCategory[] = [
             question: "Which is correct numbered list formatting in Markdown?",
             options: [
               "1) Item 1\n2) Item 2",
-              "1. Item 1\n2. Item 2",
               "# Item 1\n# Item 2",
+              "1. Item 1\n2. Item 2",
               "-1 Item 1\n-2 Item 2"
             ],
             answer: "1. Item 1\n2. Item 2",
@@ -216,10 +216,10 @@ export const examCategoryList: ExamCategory[] = [
             id: 2003,
             question: "How do you create a code block in Markdown?",
             options: [
-              "Use triple backticks ```",
               "Wrap code in <code></code> only",
               "Use (code) delimiters",
-              "Indent every line with #"
+              "Indent every line with #",
+              "Use triple backticks ```",
             ],
             answer: "Use triple backticks ```",
             explanation: "Triple backticks create fenced code blocks with optional language hints."

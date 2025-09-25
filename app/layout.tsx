@@ -29,7 +29,7 @@ export default function RootLayout({
         <Header />
 
         <main className="flex-grow container mx-auto px-4 py-6 sm:py-8">
-          <div className="rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 backdrop-blur-md border border-purple-700/30 shadow-[0_4px_20px_rgba(139,92,246,0.25)] p-4 sm:p-6 transform transition hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(139,92,246,0.4)]">
+          <div className="rounded-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 backdrop-blur-md border border-purple-700/30 shadow-[0_4px_20px_rgba(139,92,246,0.25)] p-4 sm:p-6 hover:shadow-[0_8px_30px_rgba(139,92,246,0.4)]">
             {children}
           </div>
         </main>

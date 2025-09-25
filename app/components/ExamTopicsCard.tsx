@@ -5,7 +5,7 @@ import {
   ExamCategory,
   ExamTopic,
   ExamMCQ,
-} from "../../dataImp";
+} from "../../level-1/dataImp";
 
 interface QuizState {
   currentCategory: ExamCategory | null;

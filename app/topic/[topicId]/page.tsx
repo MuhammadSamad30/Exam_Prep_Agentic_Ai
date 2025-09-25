@@ -1,10 +1,9 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
-import { getTopicById } from "../../../data";
+import { getTopicById } from "../../../level-1/data";
 import ResultPopup from "@/app/components/ResultPopup";
 import { ArrowLeft, Clock, HelpCircle } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";
@@ -19,8 +18,10 @@ export default function TopicPage() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(30 * 60); // 30 minutes in seconds
-  const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
+  const [timeRemaining, setTimeRemaining] = useState(30 * 60);
+  const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(
+    new Set()
+  );
 
   useEffect(() => {
     if (!topic) {
@@ -31,11 +32,11 @@ export default function TopicPage() {
   // Timer effect
   useEffect(() => {
     if (timeRemaining <= 0 || showResult) return;
-    
+
     const timer = setInterval(() => {
-      setTimeRemaining(prev => prev - 1);
+      setTimeRemaining((prev) => prev - 1);
     }, 1000);
-    
+
     return () => clearInterval(timer);
   }, [timeRemaining, showResult]);
 
@@ -52,7 +53,7 @@ export default function TopicPage() {
         setShowExplanation(false);
       }
     };
-    
+
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -67,14 +68,16 @@ export default function TopicPage() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const handleOptionSelect = (option: string) => {
     if (showExplanation) return;
 
     setSelectedOption(option);
-    setAnsweredQuestions(prev => new Set(prev).add(currentQuestion));
+    setAnsweredQuestions((prev) => new Set(prev).add(currentQuestion));
 
     if (option === question.answer) {
       setScore(score + 1);
@@ -82,20 +85,20 @@ export default function TopicPage() {
         position: "top-center",
         duration: 2000,
         style: {
-          background: '#10B981',
-          color: '#fff',
-          fontWeight: 'bold'
-        }
+          background: "#10B981",
+          color: "#fff",
+          fontWeight: "bold",
+        },
       });
     } else {
       toast.error("Incorrect answer!", {
         position: "top-center",
         duration: 2000,
         style: {
-          background: '#EF4444',
-          color: '#fff',
-          fontWeight: 'bold'
-        }
+          background: "#EF4444",
+          color: "#fff",
+          fontWeight: "bold",
+        },
       });
     }
 
@@ -160,7 +163,7 @@ export default function TopicPage() {
               </p>
             </div>
           </div>
-          
+
           <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
             <div className="bg-gray-800/80 px-4 py-2 rounded-lg border border-purple-800/40 flex items-center gap-2">
               <Clock className="w-4 h-4 text-purple-300" />
@@ -170,7 +173,11 @@ export default function TopicPage() {
             </div>
             <div className="bg-gray-800/80 px-4 py-2 rounded-lg border border-blue-800/40 text-sm">
               <p className="text-gray-400">
-                Question <span className="font-semibold text-blue-300">{currentQuestion + 1}</span> of {topic.mcqs.length}
+                Question{" "}
+                <span className="font-semibold text-blue-300">
+                  {currentQuestion + 1}
+                </span>{" "}
+                of {topic.mcqs.length}
               </p>
               <p className="font-semibold text-blue-300">
                 Score: {score}/{currentQuestion + (showExplanation ? 1 : 0)}
@@ -181,8 +188,8 @@ export default function TopicPage() {
 
         {/* Progress bar */}
         <div className="w-full bg-gray-700 rounded-full h-2 mb-6">
-          <div 
-            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500" 
+          <div
+            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -199,11 +206,12 @@ export default function TopicPage() {
                   key={index}
                   onClick={() => handleQuestionNavigation(index)}
                   className={`w-8 h-8 rounded-lg text-xs font-medium flex items-center justify-center transition-all
-                    ${currentQuestion === index 
-                      ? "bg-gradient-to-br from-blue-500 to-purple-500 text-white shadow-lg" 
-                      : answeredQuestions.has(index)
-                      ? "bg-green-800/50 text-green-300"
-                      : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
+                    ${
+                      currentQuestion === index
+                        ? "bg-gradient-to-br from-blue-500 to-purple-500 text-white shadow-lg"
+                        : answeredQuestions.has(index)
+                        ? "bg-green-800/50 text-green-300"
+                        : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
                     }`}
                 >
                   {index + 1}
@@ -220,7 +228,10 @@ export default function TopicPage() {
                   Question {currentQuestion + 1}
                 </span>
                 <span className="text-xs text-gray-400">
-                  {Math.round((currentQuestion + 1) / topic.mcqs.length * 100)}% Complete
+                  {Math.round(
+                    ((currentQuestion + 1) / topic.mcqs.length) * 100
+                  )}
+                  % Complete
                 </span>
               </div>
 
@@ -240,29 +251,33 @@ export default function TopicPage() {
                       key={index}
                       onClick={() => handleOptionSelect(option)}
                       className={`p-3 rounded-xl cursor-pointer border transition-all duration-300
-                        ${isSelected && !showExplanation
-                          ? "bg-blue-900/30 border-blue-500 shadow-md"
-                          : isSelected && showExplanation && isCorrect
-                          ? "bg-green-900/30 border-green-500 shadow-md"
-                          : isWrong
-                          ? "bg-red-900/30 border-red-500 shadow-md"
-                          : showExplanation && isCorrect
-                          ? "bg-green-900/30 border-green-500 shadow-md"
-                          : "bg-gray-700/30 border-gray-600 hover:bg-gray-700/50"
+                        ${
+                          isSelected && !showExplanation
+                            ? "bg-blue-900/30 border-blue-500 shadow-md"
+                            : isSelected && showExplanation && isCorrect
+                            ? "bg-green-900/30 border-green-500 shadow-md"
+                            : isWrong
+                            ? "bg-red-900/30 border-red-500 shadow-md"
+                            : showExplanation && isCorrect
+                            ? "bg-green-900/30 border-green-500 shadow-md"
+                            : "bg-gray-700/30 border-gray-600 hover:bg-gray-700/50"
                         }`}
                     >
                       <div className="flex items-center">
-                        <span className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm font-semibold
-                          ${isSelected && !showExplanation
-                            ? "bg-blue-500 text-white"
-                            : isSelected && showExplanation && isCorrect
-                            ? "bg-green-500 text-white"
-                            : isWrong
-                            ? "bg-red-500 text-white"
-                            : showExplanation && isCorrect
-                            ? "bg-green-500 text-white"
-                            : "bg-gray-600 text-gray-200"
-                          }`}>
+                        <span
+                          className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm font-semibold
+                          ${
+                            isSelected && !showExplanation
+                              ? "bg-blue-500 text-white"
+                              : isSelected && showExplanation && isCorrect
+                              ? "bg-green-500 text-white"
+                              : isWrong
+                              ? "bg-red-500 text-white"
+                              : showExplanation && isCorrect
+                              ? "bg-green-500 text-white"
+                              : "bg-gray-600 text-gray-200"
+                          }`}
+                        >
                           {optionLetter}
                         </span>
                         <span className="text-sm md:text-base">{option}</span>
@@ -275,7 +290,8 @@ export default function TopicPage() {
               {showExplanation && question.explanation && (
                 <div className="bg-gray-700/40 border-l-4 border-blue-500 p-4 mb-6 rounded-xl">
                   <p className="text-blue-200 text-sm md:text-base">
-                    <span className="font-semibold">Explanation:</span> {question.explanation}
+                    <span className="font-semibold">Explanation:</span>{" "}
+                    {question.explanation}
                   </p>
                 </div>
               )}
@@ -288,7 +304,7 @@ export default function TopicPage() {
                 >
                   Previous
                 </button>
-                
+
                 {showExplanation && (
                   <button
                     onClick={handleNextQuestion}
@@ -302,7 +318,10 @@ export default function TopicPage() {
 
             {/* Quick tips */}
             <div className="text-xs text-gray-400 text-center">
-              <p>Tip: Press number keys 1-4 to quickly select answers <br /> Press Enter → Next</p>
+              <p>
+                Tip: Press number keys 1-4 to quickly select answers <br />{" "}
+                Press Enter → Next
+              </p>
             </div>
           </div>
         </div>
@@ -317,27 +336,27 @@ export default function TopicPage() {
           timeSpent={formatTime(30 * 60 - timeRemaining)}
         />
       )}
-      
+
       {/* Toast notifications */}
-      <Toaster 
+      <Toaster
         position="top-center"
         toastOptions={{
           duration: 2000,
           style: {
-            background: '#363636',
-            color: '#fff',
-            fontWeight: '500',
-            borderRadius: '8px',
-            padding: '8px 16px',
+            background: "#363636",
+            color: "#fff",
+            fontWeight: "500",
+            borderRadius: "8px",
+            padding: "8px 16px",
           },
           success: {
             style: {
-              background: '#10B981',
+              background: "#10B981",
             },
           },
           error: {
             style: {
-              background: '#EF4444',
+              background: "#EF4444",
             },
           },
         }}

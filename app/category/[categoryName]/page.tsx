@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { categories, getCategoryByName } from "../../../data";
+import { categories, getCategoryByName } from "../../../level-1/data";
 import { FileDown } from "lucide-react";
 
 export async function generateStaticParams() {
